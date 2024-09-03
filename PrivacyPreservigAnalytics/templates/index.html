@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VSHC Hospital</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    <style>
+        /* Style to make the image fullscreen */
+        .fullscreen-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: -1;
+        }
+
+        .fullscreen-bg img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* Adjusted to cover */
+        }
+
+        .container {
+            position: relative;
+            z-index: 1; /* Ensure the content appears above the background image */
+        }
+    </style>
+</head>
+<body>
+    <div class="fullscreen-bg">
+        <img src="https://i.graphicmama.com/blog/wp-content/uploads/2021/04/22085104/free-medical-background-23.png" alt="Background Image">
+    </div>
+    <div class="container">
+        <h1>Welcome to VSHC Hospital</h1>
+        <a href="{{ url_for('register') }}" class="button">Sign Up</a>
+        <a href="{{ url_for('login') }}" class="button">Login</a>
+    </div>
+    <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+</body>
+</html>

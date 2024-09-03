@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $('#role').change(function(){
+                if($(this).val() == 'doctor'){
+                    $('#specialization').show();
+                } else {
+                    $('#specialization').hide();
+                }
+            });
+        });
+    </script>
+<style>
+    /* Style to make the image fullscreen */
+    .fullscreen-bg {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        z-index: -1;
+        opacity: 0.7;
+    }
+
+    .fullscreen-bg img {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover; /* Adjusted to cover */
+    }
+
+    .container {
+        position: relative;
+        z-index: 1; /* Ensure the content appears above the background image */
+    }
+</style>
+</head>
+<body>
+<div class="fullscreen-bg">
+    <img src="https://img.freepik.com/premium-photo/medical-thematic-blue-white-colors_1091302-32575.jpg" alt="Background Image">
+</div>
+    <div class="container">
+        <h1>Login</h1>
+        {% if message %}
+            <p>{{ message }}</p>
+        {% endif %}
+        <form action="{{ url_for('login') }}" method="POST">
+            <select id="role" name="role" required>
+                <option value="">Select Role</option>
+                <option value="patient">Patient</option>
+                <option value="doctor">Doctor</option>
+                <option value="admin">Admin</option>
+            </select>
+            <select id="specialization" name="specialization" style="display: none;">
+                <option value="">Select Specialization</option>
+                <option value="dental">Dental</option>
+                <option value="anesthesia">Anesthesia</option>
+                <option value="dermatology">Dermatology</option>
+                <option value="gynecology">Gynecology</option>
+                <option value="neurology">Neurology</option>
+                <option value="surgery">Surgery</option>
+            </select>
+            <input type="text" id="username" name="username" placeholder="Username" required>
+            <input type="password" id="password" name="password" placeholder="Password" required>
+            <a href="{{ url_for('reset_password') }}" class="forget-password">Forget Password?</a>
+            <button type="submit" class="button">Login</button>
+        </form>
+    </div>
+    <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+</body>
+</html>

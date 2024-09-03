@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Patient Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    <style>
+        /* Style to make the image fullscreen */
+        .fullscreen-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: -1;
+            opacity: 1;
+        }
+
+        .fullscreen-bg img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* Adjusted to cover */
+        }
+
+        .container {
+            position: relative;
+            z-index: 1; /* Ensure the content appears above the background image */
+        }
+    </style>
+</head>
+<body>
+    <div class="fullscreen-bg">
+        <img src="https://img.freepik.com/premium-vector/abstract-medical-background-with-hexagons-pattern_120542-384.jpg?size=626&ext=jpg&uid=R148527239&ga=GA1.1.1050797173.1715535788&semt=ais_user" alt="Background Image">
+    </div>
+    <div class="container">
+        <h1>Patient Dashboard</h1>
+        <div class="welcome-message">
+            <p>Welcome, {{ user['username'] }}</p>
+        </div>
+        <div class="dashboard-layout">
+            <div class="dashboard-menu">
+                <h2>Menu</h2>
+                <ul>
+                    <li><a href="#" data-content="appointments">Appointments</a></li>
+                    <li><a href="#" data-content="personal-details">Personal Details</a></li>
+                    <li><a href="#" data-content="reports">Reports</a></li>
+                    <li><a href="#" data-content="bills">Bills</a></li>
+                </ul>
+            </div>
+
+            <div class="dashboard-content">
+                <div id="appointments" class="content appointment-frame" style="display: none;">
+                    <h2>Appointments</h2>
+                    <!-- Buttons for managing appointments -->
+                    <div class="appointment-buttons">
+                        <button onclick="window.location.href='/new_appointment'" class="button">New </button>
+                        <button onclick="window.location.href='/view_appointments'" class="button">View </button>
+                        <button onclick="window.location.href='/cancel_appointment'" class="button">Cancel </button>
+                    </div>
+                </div>
+                
+                <div id="personal-details" class="content" style="display: none;">
+                    <h2>Personal patient details</h2>
+                    <div class="personal-details-buttons">
+                        <button onclick="window.location.href='/patient_personal_details'" class="button">New </button>
+                        <button onclick="window.location.href='/view_personal_details'" class="button">View </button>
+                    </div>
+                </div>
+
+                <!-- New section for Reports -->
+                <div id="reports" class="content" style="display: none;">
+                    <h2>Medical Reports</h2>
+                    <div class="report-buttons">
+                        <button onclick="window.location.href='/view_reports'" class="button">View </button>
+                    </div>
+                </div>
+
+                <!-- New section for Bills -->
+                <div id="bills" class="content" style="display: none;">
+                    <h2>Bills</h2>
+                    <div class="bill-buttons">
+                        <button onclick="window.location.href='/generate_bill'" class="button">View</button>
+                    </div>
+                </div>
+                <!-- Other content sections will go here -->
+            </div>
+        </div>
+    </div>
+    <script src="{{ url_for('static', filename='js/dashboard.js') }}"></script>
+</body>
+</html>

@@ -1,0 +1,282 @@
+body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    background-color: #f5f5f5;
+}
+
+.container {
+    background-color: #ffffff7e;
+    padding: 30px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    max-width: 400px;
+    width: 100%;
+}
+
+h1 {
+    margin-top: 0;
+}
+
+input[type="text"],
+input[type="password"],
+input[type="tel"],
+input[type="number"],
+select,
+input[type="date"] {
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    width: 100%;
+    box-sizing: border-box;
+    transition: border-color 0.3s; /* Add transition for border color */
+}
+
+input[type="text"]:focus,
+input[type="password"]:focus,
+input[type="tel"]:focus,
+input[type="number"]:focus,
+select:focus,
+input[type="date"]:focus {
+    outline: none;
+    border-width: 2px;
+    border-color: #007bff; /* Set border color on focus */
+}
+
+/*
+form {
+    margin-top: 20px;
+}
+  
+form .input {
+    width: 100%;
+    background: white;
+    border: none;
+    padding: 15px 20px;
+    border-radius: 20px;
+    margin-top: 15px;
+    box-shadow: #cff0ff 0px 10px 10px -5px;
+    border-inline: 2px solid transparent;
+}
+  
+form .input::-moz-placeholder {
+    color: rgb(170, 170, 170);
+}
+  
+form .input::placeholder {
+    color: rgb(170, 170, 170);
+}
+  
+form .input:focus {
+    outline: none;
+    border-inline: 2px solid #12B1D1;
+}
+  
+form .forgot-password {
+    display: block;
+    margin-top: 10px;
+    margin-left: 10px;
+}
+  
+form .forgot-password a {
+    font-size: 11px;
+    color: #0099ff;
+    text-decoration: none;
+}
+  
+form .login-button {
+    display: block;
+    width: 100%;
+    font-weight: bold;
+    background: linear-gradient(45deg, rgb(16, 137, 211) 0%, rgb(18, 177, 209) 100%);
+    color: white;
+    padding-block: 15px;
+    margin: 20px auto;
+    border-radius: 20px;
+    box-shadow: rgba(133, 189, 215, 0.8784313725) 0px 20px 10px -15px;
+    border: none;
+    transition: all 0.2s ease-in-out;
+}
+  
+form .login-button:hover {
+    transform: scale(1.03);
+    box-shadow: rgba(133, 189, 215, 0.8784313725) 0px 23px 10px -20px;
+}
+  
+form .login-button:active {
+    transform: scale(0.95);
+    box-shadow: rgba(133, 189, 215, 0.8784313725) 0px 15px 10px -10px;
+}
+
+
+form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+*/
+input,
+select {
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.button {
+    --color: #2c8bf8;
+    font-family: inherit;
+    display: inline-block;
+    width: 6em;
+    height: 2.6em;
+    line-height: 2.5em;
+    overflow: hidden;
+    cursor: pointer;
+    margin: 20px;
+    font-size: 17px;
+    z-index: 1;
+    color: var(--color);
+    border: 2px solid var(--color);
+    border-radius: 6px;
+    position: relative;
+  }
+  
+  .button::before {
+    position: absolute;
+    content: "";
+    background: var(--color);
+    width: 150px;
+    height: 200px;
+    z-index: -1;
+    border-radius: 50%;
+  }
+  
+  .button:hover {
+    color: white;
+  }
+  
+  .button:before {
+    top: 100%;
+    left: 100%;
+    transition: 0.5s all;
+  }
+  
+  .button:hover::before {
+    top: -30px;
+    left: -30px;
+  }
+
+a {
+    display: inline-block;
+    margin-top: 20px;
+    color: #4CAF50;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+.btn {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #4CAF50;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 3px;
+    margin-top: 20px;
+}
+
+.btn:hover {
+    background-color: #3e8e41;
+}
+
+.forget-password {
+    font-size: 0.8rem;
+    color: #888;
+    margin-bottom: 10px;
+    text-align: right;
+    display: block;
+}
+
+.forget-password:hover {
+    color: #555;
+}
+
+.dashboard-layout {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.dashboard-content {
+    flex: 1;
+    padding: 20px;
+    background-color: #f5f5f5;
+    border-radius: 5px;
+    margin-right: 20px;
+}
+
+.dashboard-menu {
+    width: 200px;
+    background-color: #f5f5f5;
+    padding: 20px;
+    border-radius: 5px;
+}
+
+.dashboard-menu h2 {
+    margin-top: 0;
+}
+
+.dashboard-menu ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.dashboard-menu li {
+    margin-bottom: 10px;
+}
+
+.dashboard-menu a {
+    text-decoration: none;
+    color: #333;
+    font-weight: bold;
+    display: block;
+    padding: 10px;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+.dashboard-menu a:hover {
+    background-color: #e0e0e0;
+}
+
+.welcome-message {
+    text-align: center;
+    margin-bottom: 20px; /* Optional: Add some space between the message and the dashboard */
+}
+
+.dashboard-layout {
+    display: flex;
+}
+
+.dashboard-content {
+    flex: 1;
+    /* Add any additional styles as needed */
+}
+
+.dashboard-menu {
+    width: 200px;
+    /* Add any additional styles as needed */
+}
+
+.content iframe {
+    height: 90vh; /* 90% of the viewport height */
+}
+

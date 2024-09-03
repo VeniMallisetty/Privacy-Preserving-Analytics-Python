@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    <style>
+        /* Style to make the image fullscreen */
+        .fullscreen-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: -1;
+            opacity: 0.6;
+        }
+
+        .fullscreen-bg img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* Adjusted to cover */
+        }
+
+        .container {
+            position: relative;
+            z-index: 1; /* Ensure the content appears above the background image */
+        }
+    </style>
+</head>
+<body>
+    <div class="fullscreen-bg">
+        <img src="https://thumbs.dreamstime.com/b/healthcare-technol…medical-network-hospital-background-162019727.jpg" alt="Background Image">
+    </div>
+    <div class="container">
+        <h1>Admin Dashboard</h1>
+        <div class="welcome-message">
+            <p>Welcome, {{ user["username"] }}</p>
+        </div>
+        <div class="dashboard-layout">
+            <div class="dashboard-menu" style="margin-right: auto;">
+                <h2>Menu</h2>
+                <ul>
+                    <li><a href="#" id="view-private-key">View Private Key</a></li>
+                    <li><a href="#" id="view-records">Records</a></li>
+                </ul>
+            </div> 
+
+            <div class="dashboard-content">
+                <div id="private-key-section" style="display: none;">
+                    <h2>Your Private Key</h2>
+                    <form id="private-key-form">
+                        <input type="password" id="password" name="password" placeholder="Enter your password">
+                        <button type="submit" class="button">Submit</button>
+                    </form>
+                    <p id="private-key"></p>
+                </div>
+
+                <div id="records-section" style="display: none;">
+                    <h2>Patient Records</h2>
+                    <div id="patient-details"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('#view-private-key').click(function(e) {
+                e.preventDefault();
+                $('#private-key-section').show();
+            });
+        
+            $('#private-key-form').submit(function(e) {
+                e.preventDefault();
+                var password = $('#password').val();
+        
+                $.ajax({
+                    type: 'POST',
+                    url: '/verify_password',
+                    data: { username: '{{ session["user"]["username"] }}', password: password },
+                    success: function(response) {
+                        if (response.status === 'success') {
+                            $('#private-key').text('Your private key: ' + response.private_key);
+                            $('#private-key-section').hide();
+                        } else {
+                            $('#private-key').text(response.message);
+                        }
+                    },
+                    error: function() {
+                        $('#private-key').text('Error verifying password');
+                    }
+                });
+            });
+        
+            $('#view-records').click(function(e) {
+                e.preventDefault();
+                var privateKey = prompt('Enter your private key:');
+                // if (!privateKey) {
+                //     return;
+                // }
+                
+                $.ajax({
+                    type: 'GET',
+                    url: '/get_patient_details',
+                    data: { private_key: privateKey ,  username :"{{ session['user']['username'] }}"},
+                    success: function(response) {
+                        if (response.status === 'success') {
+                            var patientDetailsHTML = '<table><thead><tr><th>Full Name</th><th>Phone Number</th><th>Address</th><th>Disease</th></tr></thead><tbody>';
+                            response.patient_details.forEach(function(detail) {
+                                patientDetailsHTML += '<tr><td>' + detail[1] + '</td><td>' + detail[4] + '</td><td>' + detail[6] + '</td><td>' + detail[7] + '</td></tr>';
+                            });
+                            patientDetailsHTML += '</tbody></table>';
+                            $('#patient-details').html(patientDetailsHTML);
+                            $('#records-section').show();
+                        } else 
+                        {
+                            alert('Error retrieving patient details');
+                            var patientDetailsHTML = '<table><thead><tr><th>Full Name</th><th>Phone Number</th><th>Address</th><th>Disease</th></tr></thead><tbody>';
+                            response.patient_details.forEach(function(detail) {
+                                patientDetailsHTML += '<tr><td>' + detail[1] + '</td><td>' + detail[4] + '</td><td>' + detail[6] + '</td><td>' + detail[7] + '</td></tr>';
+                            });
+                            patientDetailsHTML += '</tbody></table>';
+                            $('#patient-details').html(patientDetailsHTML);
+                            $('#records-section').show();
+                        }
+                    },
+                    error: function() {
+                        alert('Error retrieving patient details');
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

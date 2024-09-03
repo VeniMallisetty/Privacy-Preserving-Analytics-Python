@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Personal Details</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    <style>
+        /* Style to make the image fullscreen */
+        .fullscreen-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: -1;
+            opacity: 0.4;
+        }
+
+        .fullscreen-bg img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* Adjusted to cover */
+        }
+
+        .container {
+            position: relative;
+            z-index: 1; /* Ensure the content appears above the background image */
+        }
+    </style>
+</head>
+<body>
+    <div class="fullscreen-bg">
+        <img src="https://revolve.healthcare/_next/image?url=https%3A%2F%2Fapi.revolve.healthcare%2Fuploads%2Fmdr_rule_11_d52e43a9be.webp&w=1999&q=75" alt="Background Image">
+    </div>
+    <div class="container">
+        <h1>View Personal Details</h1>
+        <div class="personal-details">
+            <p><strong>Full Name:</strong> {{ personal_details['full_name'] }}</p>
+            <p><strong>Age:</strong> {{ personal_details['age'] }}</p>
+            <p><strong>Gender:</strong> {{ personal_details['gender'] }}</p>
+            <p><strong>Phone Number:</strong> {{ personal_details['phone_number'] }}</p>
+            <p><strong>Blood Group:</strong> {{ personal_details['blood_group'] }}</p>
+            <p><strong>Address:</strong> {{ personal_details['address'] }}</p>
+            <p><strong>Disease:</strong> {{ personal_details['disease'] }}</p>
+        </div>
+        <a href="{{ url_for('edit_personal_details') }}" class="button">Edit</a>
+    </div>
+</body>
+</html>

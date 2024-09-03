@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Doctor Personal Details</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    <style>
+        /* Style to make the image fullscreen */
+        .fullscreen-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: -1;
+            opacity: 0.4;
+        }
+
+        .fullscreen-bg img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* Adjusted to cover */
+        }
+
+        .container {
+            position: relative;
+            z-index: 1; /* Ensure the content appears above the background image */
+            padding: 20px;
+            background-color: rgba(255, 255, 255, 0.8); /* Slightly transparent background */
+            max-width: 600px; /* Width of the form */
+            margin: auto; /* Center the form */
+        }
+
+        form label {
+            display: block;
+            margin-top: 10px;
+        }
+
+        form input, form select, form textarea {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+            box-sizing: border-box;
+        }
+
+        form textarea {
+            resize: vertical;
+        }
+        
+        .button {
+            margin-top: 15px;
+            padding: 10px 15px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        .button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <div class="fullscreen-bg">
+        <img src="https://revolve.healthcare/_next/image?url=https%3A%2F%2Fapi.revolve.healthcare%2Fuploads%2Fmdr_rule_11_d52e43a9be.webp&w=1999&q=75" alt="Background Image">
+    </div>
+    <div class="container">
+        <h2>Doctor Personal Details</h2>
+        <form action="{{ url_for('doctor_personal_details') }}" method="POST">
+            <label for="fullname">Full Name:</label>
+            <input type="text" id="fullname" name="full_name" required><br>
+        
+            <label for="age">Age:</label>
+            <input type="number" id="age" name="age" required><br>
+        
+            <label for="specialization">Specialization:</label>
+            <input type="text" id="specialization" name="specialization" required><br>
+        
+            <label for="experience">Experience (in years):</label>
+            <input type="number" id="experience" name="experience" required><br>
+        
+            <label for="education">Education:</label>
+            <textarea id="education" name="education" required></textarea><br>
+            
+            <input type="submit" class="button" value="Save">
+        </form>        
+    </div>
+</body>
+</html>

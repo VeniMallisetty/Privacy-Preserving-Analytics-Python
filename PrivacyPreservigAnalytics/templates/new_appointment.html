@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>New Appointment</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    <style>
+        /* Style to make the image fullscreen */
+        .fullscreen-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: -1;
+            opacity: 0.4;
+        }
+
+        .fullscreen-bg img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* Adjusted to cover */
+        }
+
+        .container {
+            position: relative;
+            z-index: 1; /* Ensure the content appears above the background image */
+            padding: 20px;
+            background-color: rgba(255, 255, 255, 0.8); /* Slightly transparent background */
+            max-width: 400px; /* Width of the form */
+            margin: auto; /* Center the form */
+        }
+
+        form label {
+            display: block;
+            margin-top: 10px;
+        }
+
+        form input, form select {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+            box-sizing: border-box;
+        }
+
+        .tooltip {
+            position: relative;
+            display: inline-block;
+        }
+
+        .tooltip .tooltiptext {
+            visibility: hidden;
+            width: 200px;
+            background-color: black;
+            color: #fff;
+            text-align: center;
+            border-radius: 5px;
+            padding: 5px;
+            position: absolute;
+            z-index: 1;
+            bottom: 125%; /* Position above the tooltip container */
+            left: 50%;
+            margin-left: -100px;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .tooltip:hover .tooltiptext {
+            visibility: visible;
+            opacity: 1;
+        }
+    </style>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('#disease').change(function() {
+                const disease = $(this).val();
+                if (disease) {
+                    $.getJSON("{{ url_for('get_doctors') }}", { disease: disease }, function(data) {
+                        let options = '<option value="">Select Doctor</option>';
+                        data.forEach(doctor => {
+                            options += `<option value="${doctor.full_name}" data-details="Name: ${doctor.full_name}<br>Experience: ${doctor.experience} years<br>Age: ${doctor.age}<br>Specialization: ${doctor.specialization}<br>Education: ${doctor.education}">${doctor.full_name} (${doctor.experience} years)</option>`;
+                        });
+                        $('#doctor_name').html(options);
+                    });
+                }
+            });
+
+            $('#doctor_name').hover(function() {
+                const selectedOption = $(this).find('option:selected');
+                const details = selectedOption.data('details');
+                $('#doctorTooltip').html(details);
+            });
+        });
+    </script>
+</head>
+<body>
+    <div class="fullscreen-bg">
+        <img src="https://t4.ftcdn.net/jpg/02/45/51/51/360_F_245515156_h2nHzDquKJxygpkOkG4UsMV5So5uh3LF.jpg" alt="Background Image">
+    </div>
+    <div class="container">
+        <h1>New Appointment</h1>
+        <form action="{{ url_for('new_appointment') }}" method="POST">
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name" required><br>
+
+            <label for="age">Age:</label>
+            <input type="number" id="age" name="age" required><br>
+
+            <label for="disease">Disease:</label>
+            <select id="disease" name="disease" required>
+                <option value="Dental">Dental</option>
+                <option value="Anesthesia">Anesthesia</option>
+                <option value="Dermatology">Dermatology</option>
+                <option value="Gynecology">Gynecology</option>
+                <option value="Neurology">Neurology</option>
+                <option value="Surgery">Surgery</option>
+            </select><br>
+
+            <label for="doctor_name" class="tooltip">Doctor Name:
+                <select id="doctor_name" name="doctor_name" required>
+                    <option value="">Select Doctor</option>
+                </select>
+                <span class="tooltiptext" id="doctorTooltip"></span>
+            </label><br>
+
+            <label for="gender">Gender:</label>
+            <select id="gender" name="gender" required>
+                <option value="male">Male</option>
+                <option value="female">Female</option>
+                <option value="other">Other</option>
+            </select><br>
+
+            <label for="date">Date:</label>
+            <input type="date" id="date" name="date" required><br>
+
+            <label for="time">Time:</label>
+            <input type="time" id="time" name="time" required><br>
+
+            <label for="phone_number">Phone Number:</label>
+            <input type="tel" id="phone_number" name="phone_number"required><br>
+
+            <button class="button" type="submit">Submit</button>
+        </form>
+    </div>
+</body>
+</html>
+

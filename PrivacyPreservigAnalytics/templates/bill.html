@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bill</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    <style>
+        /* Style to make the image fullscreen */
+        .fullscreen-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: -1;
+            opacity: 0.3;
+        }
+
+        .fullscreen-bg img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* Adjusted to cover */
+        }
+
+        .container {
+            position: relative;
+            z-index: 1; /* Ensure the content appears above the background image */
+        }
+    </style>
+</head>
+<body>
+    <div class="fullscreen-bg">
+        <img src="https://img.freepik.com/free-vector/receipts-illustration-realistic-payment-paper-bills-cash-credit-card-transaction_33099-520.jpg?t=st=1715535736~exp=1715539336~hmac=17598c6dd3a824174c0f35ea01be6f03482900f21b7364df0eea175131834a40&w=996" alt="Background Image">
+    </div>
+    <div class="container">
+        <h1>Bill</h1>
+        <div class="bill-details">
+            <p><strong>Name:</strong> {{ patient_name }}</p>
+            <p><strong>Disease/Treatment:</strong> {{ disease }}</p>
+            <p><strong>Treatment Cost:</strong> {{ treatment_cost }} rupees</p>
+            <p><strong>Medicine Costs:</strong></p>
+            <ul>
+                {% for medicine, cost in medicine_costs %}
+                    <li>{{ medicine }} - {{ cost }} rupees</li>
+                {% endfor %}
+            </ul>
+            <p><strong>Total Bill:</strong> {{ total_bill }} rupees</p>
+        </div>
+        <button onclick="window.location.href='/generate_bill'" class="button">Another Bill</button>
+    </div>
+</body>
+</html>
